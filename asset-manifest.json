@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/reoonews/static/css/main.e2a9e5d1.css",
+    "main.js": "/reoonews/static/js/main.f425374a.js",
+    "index.html": "/reoonews/index.html",
+    "main.e2a9e5d1.css.map": "/reoonews/static/css/main.e2a9e5d1.css.map",
+    "main.f425374a.js.map": "/reoonews/static/js/main.f425374a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e2a9e5d1.css",
+    "static/js/main.f425374a.js"
+  ]
+}
