@@ -6,34 +6,39 @@ export default function NewsComponent() {
     const [pageNumber, setPageNumber] = useState(1);
     const [data, setData] = useState([]);
     const pageSize = 10;
-    const url = `https://newsapi.org/v2/everything?pageSize=${pageSize}&apiKey=398674dffbd849df94e0e54785d51b7f&page=${pageNumber}`;
+    const apiKey = '398674dffbd849df94e0e54785d51b7f';
 
-    const goToNextPage = ()=> {
-        let currPage = pageNumber;
-        setPageNumber(currPage + 1);
-    }
-
-    const goToPrevPage = ()=> {
-        let currPage = pageNumber;
-        setPageNumber(currPage - 1);
-    }
-
-    const fetchFunc = async () => {
+    const fetchNews = async (page) => {
         try {
+            const url = `https://newsapi.org/v2/everything?pageSize=${pageSize}&apiKey=${apiKey}&page=${page}`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            const data = await response.json();
-            setData(data.articles);
+            const result = await response.json();
+            setData(result.articles);
         } catch (error) {
             console.error(error);
         }
     };
 
+    const handlePrevClick = () => {
+        if (pageNumber > 1) {
+            const prevPage = pageNumber - 1;
+            setPageNumber(prevPage);
+            fetchNews(prevPage);
+        }
+    }
+    
+    const handleNextClick = () => {
+        const nextPage = pageNumber + 1;
+        setPageNumber(nextPage);
+        fetchNews(nextPage);
+    }
+
     useEffect(() => {
-        fetchFunc();
-    }, []);
+        fetchNews(pageNumber);
+    }, [pageNumber]);
 
     return (
         <div className="container">
@@ -65,8 +70,8 @@ export default function NewsComponent() {
             </div>
 
             <div className="container d-flex justify-content-between">
-            <button style={{visibility : pageNumber > 1 ? "visible" : "hidden"}} className='btn btn-dark m-1' onClick={goToPrevPage} > &larr;Previous</button>  
-                <button className="btn btn-dark m-1" onClick={goToNextPage}> Next Page &rarr;</button>
+                <button disabled={pageNumber <= 1} className='btn btn-dark m-1' onClick={handlePrevClick}> &larr; Previous</button>  
+                <button className="btn btn-dark m-1" onClick={handleNextClick}>Next Page &rarr;</button>
             </div>
         </div>
     );

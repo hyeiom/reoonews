@@ -13,7 +13,7 @@ export default function NewsItem(props) {
                     <h5 className="card-title" >{props.title==null ?  " " :   ((props.title.length > 30 )? props.title.substring(0,30) + "..." : props.title)} </h5>
 
 
-                    <p className="card-text"> {props.description == null ?  " " : (props.description.length > 30 ? props.description.substring(0,30) + "..." : props.title)  }  </p>
+                    <p className="card-text color-dark"> {props.description == null ?  " " : (props.description.length > 30 ? props.description.substring(0,30) + "..." : props.title)  }  </p>
                     <a href={props.url} className="btn btn-sm btn-primary">Read More</a>
                 </div>
 
